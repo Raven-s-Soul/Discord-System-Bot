@@ -7,6 +7,9 @@ import os
 async def send_message(message, user_message, is_private):
     try:
         response = responses.handle_response(user_message)
+        #TODO Add more logic
+        if(response == None ):
+            return
         await message.author.send(response) if is_private else await message.channel.send(response)
     except Exception as e:
         print(e)
