@@ -52,6 +52,7 @@ def run_discord_bot():
             await send_message(message, user_message, is_private=True)
         else:
             await send_message(message, user_message, is_private=False)
+        await client.process_commands(message)
 
     @client.event
     async def on_member_join(member):
@@ -73,6 +74,15 @@ def run_discord_bot():
     #     if guild.system_channel is not None:
     #         to_send = f'*{member.mention}* overflowed from **{guild.name}**, so we deleted this outdated process!'
     #         await guild.system_channel.send(to_send)
+
+    @client.command()
+    async def repeat(ctx, times: int, *, arg):
+        """Repeats a message multiple times."""
+        """+repeat times text"""
+        # if (times >= 10):
+        #   times = 10
+        for i in range(times):
+            await ctx.send(arg)
 
     # Program Start!
     keep_alive()
