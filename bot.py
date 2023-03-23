@@ -1,14 +1,15 @@
 import discord
 import responses
 from keep_alive import keep_alive
+from discord.ext import commands
 import os
 
 
 async def send_message(message, user_message, is_private):
     try:
         response = responses.handle_response(user_message)
-        #TODO Add more logic
-        if(response == None ):
+        # TODO Add more logic
+        if (response == None):
             return
         await message.author.send(response) if is_private else await message.channel.send(response)
     except Exception as e:
@@ -22,8 +23,10 @@ def run_discord_bot():
     # intents
     intents = discord.Intents.default()
     intents.message_content = True
+    intents.members = True
     # Client
-    client = discord.Client(intents=intents)
+    # client = discord.Client(intents=intents)
+    client = commands.Bot(command_prefix='+', intents=intents)
 
     @client.event
     async def on_ready():
@@ -49,6 +52,27 @@ def run_discord_bot():
             await send_message(message, user_message, is_private=True)
         else:
             await send_message(message, user_message, is_private=False)
+
+    @client.event
+    async def on_member_join(member):
+        guild = member.guild
+        if guild.system_channel is not None:
+            to_send = f'Welcome *{member.mention}* to **{guild.name}**!'
+            await guild.system_channel.send(to_send)
+
+    @client.event
+    async def on_member_remove(member):
+        guild = member.guild
+        if guild.system_channel is not None:
+            to_send = f'*{member.mention}* was one of us, unluckly left **{guild.name}**!'
+            await guild.system_channel.send(to_send)
+
+    # @client.event
+    # async def on_member_ban(guild, member):
+    #     guild = member.guild
+    #     if guild.system_channel is not None:
+    #         to_send = f'*{member.mention}* overflowed from **{guild.name}**, so we deleted this outdated process!'
+    #         await guild.system_channel.send(to_send)
 
     # Program Start!
     keep_alive()
