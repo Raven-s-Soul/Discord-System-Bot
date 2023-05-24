@@ -2,6 +2,8 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,visualstudiocode,python,flask,replit
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,visualstudiocode,python,flask,replit
 
+ffmpeg/*
+
 ### Flask ###
 instance/*
 !instance/.gitignore
