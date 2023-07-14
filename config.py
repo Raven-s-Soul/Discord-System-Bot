@@ -1,1 +1,1 @@
-global_operator = '+'
+global_operator = '-'
