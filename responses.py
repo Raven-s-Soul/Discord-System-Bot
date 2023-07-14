@@ -11,8 +11,7 @@ def handle_response(message) -> str:
   if p_message == 'helo':
     return 'helo a te <3!'
 
-  if p_message == 'roll':\
-    print('Number from 1 to 6 coming!!!')
+  if p_message == 'roll':
     return str(random.randint(1, 6))
 
   if p_message == 'help':
@@ -22,7 +21,7 @@ General commands (write "help pagename" to reach the correct help page):
 music    ===>   Show Music commands
 hello    ===>   Answer back
 roll     ===>   Random number from 1 to 6
-""" + config.global_operator + """repeat  - times string/text (10 capped)
+""" + config.global_operator + """repeat   ===>   times string/text (10 capped)
 ```
 """
   if p_message == 'help music':
